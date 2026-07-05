@@ -6,6 +6,7 @@
   </PropertyGroup>
   <!-- ==================== INTERNAL DEPENDENCIES ==================== -->
   <ItemGroup>
+    <PackageVersion Include="CommunityToolkit.Maui.Markup" Version="7.0.1" />
     <PackageVersion Include="Plugin.ByteArrays" Version="1.0.30" />
     <PackageVersion Include="Plugin.ExceptionListeners" Version="1.0.5" />
     <PackageVersion Include="Plugin.BaseTypeExtensions" Version="1.0.26" />

@@ -1,7 +1,11 @@
 using Bluetooth.Maui.Sample.CerbotController.Services;
-using Bluetooth.Maui.Sample.CerbotController.Views;
 using Bluetooth.Maui.Sample.CerbotController.ViewModels;
+using Bluetooth.Maui.Sample.CerbotController.Views;
 
+using CommunityToolkit.Maui;
+
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
@@ -24,6 +28,7 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+        builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
         // Register Bluetooth services
         builder.Services.AddBluetoothServices();
@@ -35,16 +40,16 @@ public static class MauiProgram
         builder.Services.AddTransient<ScannerPage>();
         builder.Services.AddTransient<ScannerViewModel>();
 
-      //  builder.Services.AddTransient<DevicePage>();
-      //  builder.Services.AddTransient<DeviceViewModel>();
-       // builder.Services.AddTransient<CharacteristicsPage>();
-      //  builder.Services.AddTransient<CharacteristicsViewModel>();
-      //  builder.Services.AddTransient<CharacteristicDetailPage>();
-      //  builder.Services.AddTransient<CharacteristicDetailViewModel>();
-      //  builder.Services.AddTransient<WriteListenLabPage>();
-       // builder.Services.AddTransient<WriteListenLabViewModel>();
-      //  builder.Services.AddTransient<ClosestDeviceScanPage>();
-      //  builder.Services.AddTransient<ClosestDeviceScanViewModel>();
+        builder.Services.AddTransient<DevicePage>();
+        builder.Services.AddTransient<DeviceViewModel>();
+        builder.Services.AddTransient<CharacteristicsPage>();
+        builder.Services.AddTransient<CharacteristicsViewModel>();
+        builder.Services.AddTransient<CharacteristicDetailPage>();
+        builder.Services.AddTransient<CharacteristicDetailViewModel>();
+        builder.Services.AddTransient<WriteListenLabPage>();
+        builder.Services.AddTransient<WriteListenLabViewModel>();
+        builder.Services.AddTransient<ClosestDeviceScanPage>();
+        builder.Services.AddTransient<ClosestDeviceScanViewModel>();
 
         return builder.Build();
     }

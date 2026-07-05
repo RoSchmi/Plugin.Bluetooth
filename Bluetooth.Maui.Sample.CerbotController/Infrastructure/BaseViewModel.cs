@@ -3,6 +3,11 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
+using Plugin.BaseTypeExtensions;
+
+
+using Microsoft.Extensions.Logging;
+
 namespace Bluetooth.Maui.Sample.CerbotController.Infrastructure;
 
 /// <summary>

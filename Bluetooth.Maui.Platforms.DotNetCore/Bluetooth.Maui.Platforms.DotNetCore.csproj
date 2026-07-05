@@ -43,7 +43,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="CommunityToolkit.Maui" />
+        <PackageReference Include="CommunityToolkit.Maui.Markup" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
         <PackageReference Include="Plugin.ByteArrays" />
         <PackageReference Include="Plugin.BaseTypeExtensions" />

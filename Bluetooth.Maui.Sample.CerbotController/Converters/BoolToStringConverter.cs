@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Bluetooth.Maui.Sample.Scanner.Converters;
+namespace Bluetooth.Maui.Sample.CerbotController.Converters;
 
 /// <summary>
 ///     Converts a boolean value to a string based on a parameter containing two options separated by '|'.

@@ -1,12 +1,32 @@
 using System.Collections.ObjectModel;
 
+using Bluetooth.Abstractions;
+using Bluetooth.Abstractions.Scanning;
+using Bluetooth.Abstractions.Scanning.Options;
+using Bluetooth.Abstractions.Scanning.EventArgs;
+
+
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+
+
+
+using Plugin.BaseTypeExtensions;
+
+
+
 using Bluetooth.Maui.Sample.CerbotController.Infrastructure;
+using Bluetooth.Maui.Sample.CerbotController.Services;
+using Bluetooth.Maui.Sample.CerbotController.Views;
 
 using Microsoft.Extensions.Logging;
 
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
+
+
 
 namespace Bluetooth.Maui.Sample.CerbotController.ViewModels;
+
 
 /// <summary>
 ///     ViewModel for the scanner page, handling BLE device discovery and display.

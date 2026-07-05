@@ -3,33 +3,31 @@ using System.Globalization;
 namespace Bluetooth.Maui.Sample.CerbotController.Converters;
 
 /// <summary>
-///     Converts a boolean value to a string based on a parameter containing two options separated by '|'.
-///     The parameter format is "TrueValue|FalseValue".
+///     Converts an integer value to a boolean indicating whether it's not zero.
 /// </summary>
-public class BoolToStringConverter : IValueConverter
+public class IsNotZeroConverter : IValueConverter
 {
     /// <summary>
-    ///     Converts a boolean to a string using the parameter format "TrueValue|FalseValue".
+    ///     Converts an integer to a boolean (true if not zero).
     /// </summary>
-    /// <param name="value">The boolean value to convert.</param>
-    /// <param name="targetType">The target type (not used).</param>
-    /// <param name="parameter">The parameter string in format "TrueValue|FalseValue".</param>
-    /// <param name="culture">The culture (not used).</param>
-    /// <returns>The true or false string value based on the boolean input.</returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not bool boolValue || parameter is not string paramString)
+        if (value is int intValue)
         {
-            return string.Empty;
+            return intValue != 0;
         }
 
-        var parts = paramString.Split('|');
-        if (parts.Length != 2)
+        if (value is long longValue)
         {
-            return string.Empty;
+            return longValue != 0;
         }
 
-        return boolValue ? parts[0] : parts[1];
+        if (value is double doubleValue)
+        {
+            return Math.Abs(doubleValue) > 0.0001;
+        }
+
+        return false;
     }
 
     /// <summary>

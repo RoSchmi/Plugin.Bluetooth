@@ -1,6 +1,6 @@
 using Bluetooth.Maui.Sample.CerbotController.Services;
 
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace Bluetooth.Maui.Sample.CerbotController.Services;
 

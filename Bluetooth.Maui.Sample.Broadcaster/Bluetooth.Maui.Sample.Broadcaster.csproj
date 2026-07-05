@@ -49,7 +49,7 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui" />
-        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="CommunityToolkit.Maui.Markup" />
         <PackageReference Include="Plugin.ByteArrays" />
         <PackageReference Include="Plugin.BaseTypeExtensions" />
         <PackageReference Include="Plugin.ExceptionListeners" />
