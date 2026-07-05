@@ -35,19 +35,21 @@
 
     <!-- ==================== PACKAGE REFERENCES / DEPENDENCIES ==================== -->
     <ItemGroup>
-        <ProjectReference Include="../Bluetooth.Abstractions/Bluetooth.Abstractions.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="../Bluetooth.Abstractions.Scanning/Bluetooth.Abstractions.Scanning.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="../Bluetooth.Abstractions.Broadcasting/Bluetooth.Abstractions.Broadcasting.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="../Bluetooth.Abstractions/Bluetooth.Abstractions.csproj" PrivateAssets="all" />
+        <ProjectReference Include="../Bluetooth.Abstractions.Scanning/Bluetooth.Abstractions.Scanning.csproj" PrivateAssets="all" />
+        <ProjectReference Include="../Bluetooth.Abstractions.Broadcasting/Bluetooth.Abstractions.Broadcasting.csproj" PrivateAssets="all" />
 
-        <ProjectReference Include="../Bluetooth.Core/Bluetooth.Core.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="../Bluetooth.Core.Broadcasting/Bluetooth.Core.Broadcasting.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="../Bluetooth.Core.Scanning/Bluetooth.Core.Scanning.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="../Bluetooth.Core/Bluetooth.Core.csproj" PrivateAssets="all" />
+        <ProjectReference Include="../Bluetooth.Core.Broadcasting/Bluetooth.Core.Broadcasting.csproj" PrivateAssets="all" />
+        <ProjectReference Include="../Bluetooth.Core.Scanning/Bluetooth.Core.Scanning.csproj" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Plugin.ByteArrays"/>
-        <PackageReference Include="Plugin.BaseTypeExtensions"/>
-        <PackageReference Include="Plugin.ExceptionListeners"/>
-        <PackageReference Include="Plugin.ExceptionListeners.Maui"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+        <PackageReference Include="Plugin.ByteArrays" />
+        <PackageReference Include="Plugin.BaseTypeExtensions" />
+        <PackageReference Include="Plugin.ExceptionListeners" />
+        <PackageReference Include="Plugin.ExceptionListeners.Maui" />
     </ItemGroup>
 </Project>

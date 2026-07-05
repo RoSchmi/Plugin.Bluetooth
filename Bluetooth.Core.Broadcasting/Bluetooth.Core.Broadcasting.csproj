@@ -32,9 +32,11 @@
 
     <!-- ==================== PACKAGE REFERENCES / DEPENDENCIES ==================== -->
     <ItemGroup>
-        <PackageReference Include="Plugin.ByteArrays"/>
-        <PackageReference Include="Plugin.BaseTypeExtensions"/>
-        <PackageReference Include="Plugin.ExceptionListeners"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+        <PackageReference Include="Plugin.ByteArrays" />
+        <PackageReference Include="Plugin.BaseTypeExtensions" />
+        <PackageReference Include="Plugin.ExceptionListeners" />
     </ItemGroup>
 
     <!-- ==================== FILE DEPENDENCIES ==================== -->
@@ -59,7 +61,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Bluetooth.Abstractions.Broadcasting\Bluetooth.Abstractions.Broadcasting.csproj" PrivateAssets="all" />
-        <ProjectReference Include="..\Bluetooth.Abstractions\Bluetooth.Abstractions.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="..\Bluetooth.Core\Bluetooth.Core.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="..\Bluetooth.Abstractions\Bluetooth.Abstractions.csproj" PrivateAssets="all" />
+        <ProjectReference Include="..\Bluetooth.Core\Bluetooth.Core.csproj" PrivateAssets="all" />
     </ItemGroup>
 </Project>
