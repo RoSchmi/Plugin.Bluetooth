@@ -6,11 +6,7 @@
              x:Class="Bluetooth.Maui.Sample.CerbotController.App">
     <Application.Resources>
         
-            <Color x:Key="LightTextSecondary">#FF888888</Color>
-            <Color x:Key="DarkTextSecondary">#FFCCCCCC</Color>
-            <Color x:Key="Primary">#FFFF00FF</Color>
-
-
+         
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 
