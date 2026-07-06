@@ -26,7 +26,7 @@
                            FontSize="12"
                            LineBreakMode="WordWrap"
                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
-
+                    
                     <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
                         <Border IsVisible="{Binding CanRead}" Padding="8,4" BackgroundColor="{StaticResource Primary}" StrokeShape="RoundRectangle 4">
                             <Label Text="READ" FontSize="11" FontAttributes="Bold" TextColor="White" />
@@ -38,9 +38,12 @@
                             <Label Text="LISTEN" FontSize="11" FontAttributes="Bold" TextColor="White" />
                         </Border>
                     </HorizontalStackLayout>
+                    
                 </VerticalStackLayout>
             </Border>
-
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Start">
+                <Button Text="Play short tone" BackgroundColor="OrangeRed" Command="{Binding PlayShortToneCommand}"/>
+            </HorizontalStackLayout >
             <Border Padding="16" StrokeShape="RoundRectangle 12"
                     Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorderColor}}"
                     StrokeThickness="1"

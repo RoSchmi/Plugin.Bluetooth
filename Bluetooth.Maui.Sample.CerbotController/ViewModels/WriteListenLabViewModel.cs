@@ -36,6 +36,7 @@ public class WriteListenLabViewModel : BaseViewModel
         ToggleDisplayModeCommand = new RelayCommand(ToggleDisplayMode);
         WritePingCommand = new AsyncRelayCommand(() => QuickWriteAsync("PING"), () => Characteristic?.CanWrite == true);
         WriteHelloCommand = new AsyncRelayCommand(() => QuickWriteAsync("HELLO"), () => Characteristic?.CanWrite == true);
+        PlayShortToneCommand = new AsyncRelayCommand(PlayShortTone);
     }
 
     /// <summary>
@@ -157,6 +158,14 @@ public class WriteListenLabViewModel : BaseViewModel
     public IRelayCommand ToggleDisplayModeCommand { get; }
 
     /// <summary>
+    ///     Plays short tone.
+    /// </summary>
+    public IAsyncRelayCommand PlayShortToneCommand { get; }
+
+
+
+
+    /// <summary>
     ///     Gets quick write command for PING payload.
     /// </summary>
     public IAsyncRelayCommand WritePingCommand { get; }
@@ -178,6 +187,13 @@ public class WriteListenLabViewModel : BaseViewModel
         {
             _ = ReadValueAsync();
         }
+    }
+
+    private async Task PlayShortTone()
+    {
+        
+        WriteValueInput = "T:1:1";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);
     }
 
     private async Task ReadValueAsync()
@@ -214,6 +230,32 @@ public class WriteListenLabViewModel : BaseViewModel
             var bytes = ParseInputToBytes(WriteValueInput);
             await Characteristic.WriteValueAsync(bytes).ConfigureAwait(false);
             AppendLog($"Wrote {bytes.Length} bytes: {FormatBytes(bytes)}");
+            WriteValueInput = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Lab write failed for characteristic {CharacteristicId}", Characteristic.Id);
+            CurrentValue = $"Error: {ex.Message}";
+            AppendLog(CurrentValue);
+        }
+    }
+
+    // The input in the property WriteValueInput is appended with a CRLF sequence,
+    // then sent via the selected write characteristic
+    private async Task WriteValueWith_CRLF_Async()
+    {
+        if (Characteristic == null)
+        {
+            return;
+        }
+
+        try
+        {
+            
+            byte[] bytesToSend = Encoding.UTF8.GetBytes(WriteValueInput + "\r\n");
+
+            await Characteristic.WriteValueAsync(bytesToSend).ConfigureAwait(false);        
+            AppendLog($"Wrote {bytesToSend.Length} bytes: {FormatBytes(bytesToSend)}");
             WriteValueInput = string.Empty;
         }
         catch (Exception ex)
