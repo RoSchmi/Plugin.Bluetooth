@@ -1,12 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Text;
-
 using Bluetooth.Abstractions.Scanning;
 using Bluetooth.Abstractions.Scanning.EventArgs;
 using Bluetooth.Maui.Sample.CerbotController.Infrastructure;
-
 using CommunityToolkit.Mvvm.Input;
-
 using Microsoft.Extensions.Logging;
 
 namespace Bluetooth.Maui.Sample.CerbotController.ViewModels;
@@ -16,10 +13,21 @@ namespace Bluetooth.Maui.Sample.CerbotController.ViewModels;
 /// </summary>
 public class WriteListenLabViewModel : BaseViewModel
 {
+    public string Text_No_1 { get; } = "Short tone";
+    public string Text_No_2 { get; } = "Torero";
+    public string Text_No_3 { get; } = "Tune No. 2";
+    public string Text_No_4 { get; } = "Sirene";
+
+    private const string _speedLeftText = nameof(SpeedLeftText);
+    private const string _speedRightText = nameof(SpeedRightText);
+    int _speedLeft = 0;
+    int _speedRight = 0;
+
     private readonly ILogger<WriteListenLabViewModel> _logger;
 
     private IBluetoothRemoteCharacteristic? _characteristic;
 
+    #region Region Constructor
     /// <summary>
     ///     Initializes a new instance of the <see cref="WriteListenLabViewModel" /> class.
     /// </summary>
@@ -29,6 +37,8 @@ public class WriteListenLabViewModel : BaseViewModel
 
         IsHexMode = true;
         WriteValueInput = "01 02 03";
+        SpeedLeftText = "0";
+        SpeedRightText = "0";
 
         ReadValueCommand = new AsyncRelayCommand(ReadValueAsync, () => Characteristic?.CanRead == true);
         WriteValueCommand = new AsyncRelayCommand(WriteValueAsync, () => Characteristic?.CanWrite == true);
@@ -36,8 +46,22 @@ public class WriteListenLabViewModel : BaseViewModel
         ToggleDisplayModeCommand = new RelayCommand(ToggleDisplayMode);
         WritePingCommand = new AsyncRelayCommand(() => QuickWriteAsync("PING"), () => Characteristic?.CanWrite == true);
         WriteHelloCommand = new AsyncRelayCommand(() => QuickWriteAsync("HELLO"), () => Characteristic?.CanWrite == true);
-        PlayShortToneCommand = new AsyncRelayCommand(PlayShortTone);
+        PlayShortToneCommand = new AsyncRelayCommand(PlayShortToneAsync);
+        Play_No_2Command = new AsyncRelayCommand(Play_No_2Async);
+        Play_No_3Command = new AsyncRelayCommand(Play_No_3Async);
+        Play_No_4Command = new AsyncRelayCommand(Play_No_4Async);
+        MoveStraightCommand = new AsyncRelayCommand(MoveStraightAsync);
+        MoveForwardCommand = new AsyncRelayCommand(MoveForwardAsync);
+        MoveBackwardCommand = new AsyncRelayCommand(MoveBackwardAsync);
+        TurnLeftCommand = new AsyncRelayCommand(TurnLeftAsync);
+        TurnRightCommand = new AsyncRelayCommand(TurnRightAsync);
+        StopCommand = new AsyncRelayCommand(StopAsync);
+
+
+
+
     }
+    #endregion
 
     /// <summary>
     ///     Gets or sets the characteristic under test.
@@ -118,6 +142,84 @@ public class WriteListenLabViewModel : BaseViewModel
         }
     }
 
+
+    public string SpeedLeftText 
+    { 
+        get => GetValue(_speedLeftText);
+        set
+        {
+            SetValue(value);         
+        }
+    }
+
+    public string SpeedRightText
+    {
+        get => GetValue(_speedRightText);
+        set
+        {
+            SetValue(value);   
+        }
+    }
+
+   
+    #region Region Properties for additional commands by RoSchmi
+
+    /// <summary>
+    ///     Plays short tone.
+    /// </summary>
+    public IAsyncRelayCommand PlayShortToneCommand { get; }
+
+    /// <summary>
+    ///     Plays Plays No 2 Melody.
+    /// </summary>
+    public IAsyncRelayCommand Play_No_2Command { get; }
+
+    /// <summary>
+    ///     Plays Plays No 3 Melody.
+    /// </summary>
+    public IAsyncRelayCommand Play_No_3Command { get; }
+
+    /// <summary>
+    ///     Plays No 4 Melody.
+    /// </summary>
+    public IAsyncRelayCommand Play_No_4Command { get; }
+
+
+    /// <summary>
+    ///     Move straight.
+    /// </summary>
+    public IAsyncRelayCommand MoveStraightCommand { get; }
+
+    /// <summary>
+    ///     Move forward.
+    /// </summary>
+    public IAsyncRelayCommand MoveForwardCommand { get; }
+
+    /// <summary>
+    ///     Move backward.
+    /// </summary>
+    public IAsyncRelayCommand MoveBackwardCommand { get; }
+
+    /// <summary>
+    ///     Turn left.
+    /// </summary>
+    public IAsyncRelayCommand TurnLeftCommand { get; }
+
+    /// <summary>
+    ///     Turn right.
+    /// </summary>
+    public IAsyncRelayCommand TurnRightCommand { get; }
+
+    /// <summary>
+    ///     Turn right.
+    /// </summary>
+    public IAsyncRelayCommand StopCommand { get; }
+
+
+    #endregion
+
+
+
     /// <summary>
     ///     Gets display mode text.
     /// </summary>
@@ -158,14 +260,6 @@ public class WriteListenLabViewModel : BaseViewModel
     public IRelayCommand ToggleDisplayModeCommand { get; }
 
     /// <summary>
-    ///     Plays short tone.
-    /// </summary>
-    public IAsyncRelayCommand PlayShortToneCommand { get; }
-
-
-
-
-    /// <summary>
     ///     Gets quick write command for PING payload.
     /// </summary>
     public IAsyncRelayCommand WritePingCommand { get; }
@@ -189,13 +283,110 @@ public class WriteListenLabViewModel : BaseViewModel
         }
     }
 
-    private async Task PlayShortTone()
-    {
-        
+    #region Region Cerbot play melodies commands
+    private async Task PlayShortToneAsync()
+    {   
         WriteValueInput = "T:1:1";
         await WriteValueWith_CRLF_Async().ConfigureAwait(false);
     }
 
+    private async Task Play_No_2Async()
+    {
+        WriteValueInput = "T:2:1";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);
+    }
+
+    private async Task Play_No_3Async()
+    {
+        WriteValueInput = "T:3:1";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);
+    }
+
+    private async Task Play_No_4Async()
+    {
+        WriteValueInput = "T:4:1";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);
+    }
+    #endregion
+
+    #region Cerbot steering commands
+    private async Task MoveStraightAsync()
+    {
+        int newSpeed = Math.Max(_speedLeft, _speedRight);
+        newSpeed = Math.Clamp(newSpeed, 40, 60);
+        _speedLeft = newSpeed;
+        _speedRight = newSpeed;
+        SpeedLeftText = $"{newSpeed}";
+        SpeedRightText = $"{newSpeed}";
+        WriteValueInput = $"F:{newSpeed}:{newSpeed}";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);   
+    }
+
+    private async Task MoveForwardAsync()
+    {
+
+        if (_speedLeft < 0) { _speedLeft = 0; };
+        if (_speedRight < 0) { _speedRight = 0; };
+        _speedLeft += 30;
+        _speedRight += 30;
+        SpeedLeftText = $"{_speedLeft}";
+        SpeedRightText = $"{_speedRight}";      
+        WriteValueInput = $"F:{_speedLeft}:{_speedRight}";       
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);    
+    }
+
+   
+    private async Task TurnLeftAsync()
+    {
+        _speedLeft -= 20;
+        _speedRight += 20;
+        SpeedLeftText = $"{_speedLeft}";
+        SpeedRightText = $"{_speedRight}";
+        WriteValueInput = $"F:{_speedLeft}:{_speedRight}";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);   
+    }
+
+   
+    private async Task StopAsync()
+    {
+        _speedLeft = 0;
+        _speedRight = 0;
+        SpeedLeftText = $"{_speedLeft}";
+        SpeedRightText = $"{_speedRight}";
+        WriteValueInput = $"F:{_speedLeft}:{_speedRight}";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);
+    }
+
+    private async Task TurnRightAsync()
+    {
+        _speedLeft += 20;
+        _speedRight -= 20;
+        SpeedLeftText = $"{_speedLeft}";
+        SpeedRightText = $"{_speedRight}";
+        WriteValueInput = $"F:{_speedLeft}:{_speedRight}";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);    
+    }
+
+    private async Task MoveBackwardAsync()
+    {
+
+        //if (_speedLeft > 0) { _speedLeft = 0; };
+        //if (_speedRight > 0) { _speedRight = 0; };
+
+        _speedLeft -= 30;
+        _speedRight -= 30;
+        int newSpeed = Math.Min(_speedLeft, _speedRight);
+        _speedLeft = newSpeed;
+        _speedRight = newSpeed;
+        SpeedLeftText = $"{newSpeed}";
+        SpeedRightText = $"{newSpeed}";
+        WriteValueInput = $"F:{newSpeed}:{newSpeed}";
+        await WriteValueWith_CRLF_Async().ConfigureAwait(false);
+    }
+    #endregion
+
+
+    #region Region Task ReadValueAsync()
     private async Task ReadValueAsync()
     {
         if (Characteristic == null)
@@ -217,7 +408,9 @@ public class WriteListenLabViewModel : BaseViewModel
             AppendLog(CurrentValue);
         }
     }
+    #endregion
 
+    #region Region Task WriteValueAsync()
     private async Task WriteValueAsync()
     {
         if (Characteristic == null)
@@ -239,7 +432,9 @@ public class WriteListenLabViewModel : BaseViewModel
             AppendLog(CurrentValue);
         }
     }
+    #endregion
 
+    #region Region Task WriteValueWith_CRLF_Async()
     // The input in the property WriteValueInput is appended with a CRLF sequence,
     // then sent via the selected write characteristic
     private async Task WriteValueWith_CRLF_Async()
@@ -265,7 +460,9 @@ public class WriteListenLabViewModel : BaseViewModel
             AppendLog(CurrentValue);
         }
     }
+    #endregion
 
+    #region Region Task QuickWriteAsync(string text)
     private async Task QuickWriteAsync(string text)
     {
         WriteValueInput = IsHexMode
@@ -274,7 +471,9 @@ public class WriteListenLabViewModel : BaseViewModel
 
         await WriteValueAsync().ConfigureAwait(false);
     }
+    #endregion
 
+    #region Region Task ToggleListenAsync()
     private async Task ToggleListenAsync()
     {
         if (Characteristic == null)
@@ -304,12 +503,15 @@ public class WriteListenLabViewModel : BaseViewModel
             AppendLog(CurrentValue);
         }
     }
+    #endregion
 
+    #region Region Task ToggleDisplayMode()
     private void ToggleDisplayMode()
     {
         IsHexMode = !IsHexMode;
         AppendLog($"Display mode: {DisplayModeText}");
     }
+    #endregion
 
     private void OnValueUpdated(object? sender, ValueUpdatedEventArgs e)
     {

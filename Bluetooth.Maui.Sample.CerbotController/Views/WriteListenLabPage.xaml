@@ -42,7 +42,32 @@
                 </VerticalStackLayout>
             </Border>
             <HorizontalStackLayout Spacing="8" HorizontalOptions="Start">
-                <Button Text="Play short tone" BackgroundColor="OrangeRed" Command="{Binding PlayShortToneCommand}"/>
+                <Button Text="{Binding Text_No_1}" BackgroundColor="OrangeRed" Command="{Binding PlayShortToneCommand}"/>
+                <Button Text="{Binding Text_No_2}" BackgroundColor="OrangeRed" Command="{Binding Play_No_2Command}"/>
+                <Button Text="{Binding Text_No_3}" BackgroundColor="OrangeRed" Command="{Binding Play_No_3Command}"/>
+                <Button Text="{Binding Text_No_4}" BackgroundColor="OrangeRed" Command="{Binding Play_No_4Command}"/>
+            </HorizontalStackLayout >
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Label Text="{Binding SpeedLeftText}" Margin="0,0,40,0" BackgroundColor="AliceBlue" MinimumWidthRequest="60" MaximumWidthRequest="80"
+                       FontAttributes="Bold" FontSize="20" VerticalTextAlignment="Center" 
+                       HorizontalTextAlignment="Center"
+                       IsEnabled="false"/>
+                <Button Text="H" FontAttributes="Bold" MinimumWidthRequest="60" BackgroundColor="YellowGreen" Command="{Binding MoveStraightCommand}"/>
+                <Label Text="{Binding SpeedRightText}" Margin="40,0,0,0" BackgroundColor="AliceBlue" MinimumWidthRequest="60" MaximumWidthRequest="80"
+                       FontAttributes="Bold" FontSize="20" VerticalTextAlignment="Center" 
+                       HorizontalTextAlignment="Center"
+                       IsEnabled="false"/>
+            </HorizontalStackLayout >               
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Button Text="Forward" FontAttributes="Bold" Command="{Binding MoveForwardCommand}"/>
+            </HorizontalStackLayout >
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                <Button Text="Turn right" FontAttributes="Bold" Command="{Binding TurnRightCommand}" MinimumWidthRequest="100"/>
+                <Button Text="Stop" FontAttributes="Bold" BackgroundColor="OrangeRed" Command="{Binding StopCommand}" MinimumWidthRequest="100"/>
+                <Button Text="Turn left" FontAttributes="Bold" Command="{Binding TurnLeftCommand}" MinimumWidthRequest="100"/>
+            </HorizontalStackLayout >
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                <Button Text="Backward" FontAttributes="Bold" Command="{Binding MoveBackwardCommand}"/>
             </HorizontalStackLayout >
             <Border Padding="16" StrokeShape="RoundRectangle 12"
                     Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorderColor}}"
