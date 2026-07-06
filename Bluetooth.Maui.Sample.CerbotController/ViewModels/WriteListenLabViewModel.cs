@@ -18,8 +18,8 @@ public class WriteListenLabViewModel : BaseViewModel
     public string Text_No_3 { get; } = "Tune No. 2";
     public string Text_No_4 { get; } = "Sirene";
 
-    private const string _speedLeftText = nameof(SpeedLeftText);
-    private const string _speedRightText = nameof(SpeedRightText);
+    private const string _speedLeftText = nameof(SpeedLeftText);        // Needed for Laerdal MVVM to work
+    private const string _speedRightText = nameof(SpeedRightText);      // Needed for Laerdal MVVM to work
     int _speedLeft = 0;
     int _speedRight = 0;
 
